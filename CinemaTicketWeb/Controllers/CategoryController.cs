@@ -23,21 +23,102 @@ namespace CinemaTicketWeb.Controllers
         {
             
             return View();
+        } 
+        
+        //Post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Category obj)
+        {
+            if (_db.Categories.Any(x=>x.Name == obj.Name))
+            {
+                ModelState.AddModelError("name", "This category name exist!");
+            }
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Add(obj);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+
+            return View(obj);
         }
 
         //Get
-        public IActionResult Edit()
+        public IActionResult Edit(Guid? id)
         {
-            
-            return View();
+
+            if (id == null )
+            {
+                return NotFound();
+            }
+
+            var categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == id);
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
         }
 
+        //Post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Category obj)
+        {
+            if (_db.Categories.Any(x=>x.Name == obj.Name))
+            {
+                ModelState.AddModelError("name", "This category name exist!");
+            }
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Update(obj);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+
+            return View(obj);
+        }
 
         //Get
-        public IActionResult Delete()
+        public IActionResult Delete(Guid? id)
         {
             
-            return View();
+           
+            if (id == null )
+            {
+                return NotFound();
+            }
+
+            var categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == id);
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
+        }
+
+        //Post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePost(Guid? id)
+        {
+
+
+            var categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == id);
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+                _db.Categories.Remove(categoryFromDb);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
+            
         }
     }
 }
