@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CinemaTicketWeb.Models
+namespace CinemaTicket.Models.Models
 {
     public class Category
     {

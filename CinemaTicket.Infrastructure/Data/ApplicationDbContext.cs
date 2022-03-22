@@ -1,7 +1,7 @@
-﻿using CinemaTicketWeb.Models;
+﻿using CinemaTicket.Models.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CinemaTicketWeb.Data
+namespace CinemaTicket.Infrastructure.Data
 {
     public class ApplicationDbContext : DbContext
     {

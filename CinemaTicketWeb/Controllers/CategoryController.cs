@@ -1,5 +1,5 @@
-﻿using CinemaTicketWeb.Data;
-using CinemaTicketWeb.Models;
+﻿using CinemaTicket.Infrastructure.Data;
+using CinemaTicket.Models.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaTicketWeb.Controllers

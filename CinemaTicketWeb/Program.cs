@@ -1,4 +1,4 @@
-using CinemaTicketWeb.Data;
+using CinemaTicket.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
