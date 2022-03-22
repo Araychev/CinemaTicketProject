@@ -1,3 +1,5 @@
+using CinemaTicket.Core.Contracts;
+using CinemaTicket.Core.Services;
 using CinemaTicket.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options
     .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
