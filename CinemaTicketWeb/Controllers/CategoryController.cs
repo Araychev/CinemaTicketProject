@@ -1,5 +1,5 @@
 ﻿using CinemaTicket.Infrastructure.Data;
-using CinemaTicket.Models.Models;
+using CinemaTicket.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaTicketWeb.Controllers
@@ -70,7 +70,7 @@ namespace CinemaTicketWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Category obj)
         {
-            if (_db.Categories.Any(x=>x.Name == obj.Name))
+            if (_db.Categories.Any(x => x.Name == obj.Name))
             {
                 ModelState.AddModelError("name", "This category name exist!");
             }

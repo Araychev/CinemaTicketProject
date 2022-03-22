@@ -1,4 +1,4 @@
-﻿using CinemaTicket.Models.Models;
+﻿using CinemaTicket.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CinemaTicket.Infrastructure.Data
