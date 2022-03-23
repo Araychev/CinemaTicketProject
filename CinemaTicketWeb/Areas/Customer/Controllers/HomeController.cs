@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using CinemaTicket.Models;
+using Microsoft.AspNetCore.Mvc;
 
-namespace CinemaTicketWeb.Controllers
+namespace CinemaTicketWeb.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

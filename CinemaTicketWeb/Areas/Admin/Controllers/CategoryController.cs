@@ -1,10 +1,10 @@
 ﻿using CinemaTicket.Core.Contracts;
-using CinemaTicket.Infrastructure.Data;
 using CinemaTicket.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CinemaTicketWeb.Controllers
+namespace CinemaTicketWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _db;
