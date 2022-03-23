@@ -12,5 +12,7 @@ namespace CinemaTicket.Infrastructure.Data
         }
 
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Genre> Genres { get; set; }
     }
 }
