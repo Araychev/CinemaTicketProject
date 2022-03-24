@@ -25,4 +25,8 @@
     <ProjectReference Include="..\CinemaTicket.Core\CinemaTicket.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\tickets\" />
+  </ItemGroup>
+
 </Project>

@@ -2,6 +2,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace CinemaTicket.Models
 {
@@ -55,19 +56,22 @@ namespace CinemaTicket.Models
        [Range(1,10000)]
        [Column(TypeName = "money")]
        public decimal Price20 { get; set; }
-
+       
+       [ValidateNever]
        public string ImageUrl { get; set; }
 
         [Required]
        public Guid CategoryId { get; set; }
 
        [ForeignKey(nameof(CategoryId))]
+       [ValidateNever]
        public Category Category { get; set; }
 
        [Required]
        public Guid GenreId { get; set; }
 
        [ForeignKey(nameof(GenreId))]
+       [ValidateNever]
        public Genre Genre{ get; set; }
 
 

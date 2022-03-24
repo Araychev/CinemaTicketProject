@@ -6,6 +6,8 @@ namespace CinemaTicket.Core.Contracts
     {
         ICategoryService Category { get; }
         IGenreService Genre { get; }
+
+        ITicketService Ticket { get; }
         void Save();
     }
 }

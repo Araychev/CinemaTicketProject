@@ -1,0 +1,37 @@
+﻿
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Ticket List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Ticket" asp-action="Upsert" class="btn btn-primary"> <i class="bi bi-plus-circle"></i> &nbsp;Create New MovieTicket </a>
+        </div>
+        
+    </div>
+    <br/>
+
+    <table id="tblData" class="table table-bordered table-striped" style="width: 100%">
+        <thead>
+        <tr>
+            <th>Title of Movie</th>
+            <th>Actors</th>
+            <th>Director</th>
+            <th>Genre</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Original Language</th>
+            <th>Price</th>
+           
+            <th></th>
+        </tr>
+        </thead>
+       
+    </table>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/ticket.js"></script>
+}
+
