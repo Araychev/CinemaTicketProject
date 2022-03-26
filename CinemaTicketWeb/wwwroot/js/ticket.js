@@ -11,10 +11,10 @@ function loadDataTable() {
         },
         "columns": [
             { "data": "titleOfMovie", "width": "15%" },
-            { "data": "actors", "width": "15%" },
+           /* { "data": "actors", "width": "15%" },*/
             { "data": "director", "width": "15%" },
             { "data": "genre.name", "width": "15%" },
-            { "data": "description", "width": "15%" },
+           /* { "data": "description", "width": "50%" },*/
             { "data": "category.name", "width": "15%" },
             { "data": "originalLanguage", "width": "15%" },
             { "data": "price", "width": "15%" },
