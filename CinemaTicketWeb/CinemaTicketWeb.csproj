@@ -29,4 +29,13 @@
     <Folder Include="wwwroot\images\tickets\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\images\tickets\75ce58da-f218-4a44-ae72-63238b1e1495.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\tickets\9694fb89-cee6-4d74-a62e-7e9cff653577.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
