@@ -10,14 +10,14 @@ function loadDataTable() {
             "url": "/Admin/Ticket/GetAll"
         },
         "columns": [
-            { "data": "title of movie", "width": "15%" },
+            { "data": "titleOfMovie", "width": "15%" },
             { "data": "actors", "width": "15%" },
             { "data": "director", "width": "15%" },
-            { "data": "genre", "width": "15%" },
+            { "data": "genre.name", "width": "15%" },
             { "data": "description", "width": "15%" },
-            { "data": "category", "width": "15%" },
-            { "data": "Original Language", "width": "15%" },
-            { "data": "Price", "width": "15%" },
+            { "data": "category.name", "width": "15%" },
+            { "data": "originalLanguage", "width": "15%" },
+            { "data": "price", "width": "15%" },
             {
                 "data": "id",
                 "render": function (data) {
@@ -36,4 +36,32 @@ function loadDataTable() {
     });
 }
 
+
+function Delete(url) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (data) {
+                    if (data.success) {
+                        dataTable.ajax.reload();
+                        toastr.success(data.message);
+                    }
+                    else {
+                        toastr.error(data.message);
+                    }
+                }
+            })
+        }
+    })
+}
 

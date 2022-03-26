@@ -11,7 +11,7 @@ namespace CinemaTicket.Infrastructure.Data.Common
         public Repository(ApplicationDbContext db)
         {
             _db = db;
-            //_db.ShoppingCarts.Include(u => u.Product).Include(u=>u.Genre);
+            //_db.ShoppingCarts.Include(u => u.Ticket).Include(u=>u.Genre);
             this.dbSet = _db.Set<T>();
         }
 

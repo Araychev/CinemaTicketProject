@@ -9,7 +9,7 @@
         <div class="col-10">
             <div class="border p-3 mt-4 row">
                 <div class="col-12 pb-2">
-                    <h2 class="text-primary">@(Model.Ticket.Id == Guid.Empty ? "Update": "Create") Movie Ticket</h2>
+                    <h2 class="text-primary">@(Model.Ticket.Id != Guid.Empty ? "Update": "Create") Movie Ticket</h2>
                     <hr />
                 </div>
                 @*<div asp-validation-summary="All"></div>*@
@@ -82,7 +82,7 @@
                     <span asp-validation-for="Ticket.GenreId" class="text-danger"></span>
                 </div>
                 <div class="col-12">
-                    @if (Model.Ticket.Id == Guid.Empty)
+                    @if (Model.Ticket.Id != Guid.Empty)
                     {
                         <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
                     }
@@ -110,11 +110,11 @@
     }
 
 <script>
-//    tinymce.init({
-//        selector: 'textarea',
-//        plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-//        toolbar_mode: 'floating',
-//    });
+    tinymce.init({
+        selector: 'textarea',
+        plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        toolbar_mode: 'floating',
+    });
 
     function ValidateInput(){
         if(document.getElementById("uploadBox").value==""){

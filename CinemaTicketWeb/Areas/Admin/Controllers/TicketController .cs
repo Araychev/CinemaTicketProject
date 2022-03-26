@@ -52,10 +52,11 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
             }
             else
             {
-
+                ticketVM.Ticket = _db.Ticket.GetFirstOrDefault(t => t.Id == id);
+                return View(ticketVM);
             }
 
-            return View(ticketVM);
+            
         }
 
         //Post
@@ -73,6 +74,17 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
                     string fileName = Guid.NewGuid().ToString();
                     var uploads = Path.Combine(wwwRootPath, @"images\tickets");
                     var extention = Path.GetExtension(file.FileName);
+
+                    if (obj.Ticket.ImageUrl != null)
+                    {
+                        var oldImagePath = Path.Combine(wwwRootPath, obj
+                            .Ticket.ImageUrl.TrimStart('\\'));
+
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
                     using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extention), FileMode.Create))
                     {
                         file.CopyTo(fileStreams);
@@ -81,7 +93,17 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
                     obj.Ticket.ImageUrl = @"\images\tickets" + fileName + extention;
 
                 }
-                 _db.Ticket.Add(obj.Ticket);
+
+                if (obj.Ticket.Id == Guid.Empty)
+                {
+                    _db.Ticket.Add(obj.Ticket);
+                }
+                else
+                {
+                    _db.Ticket.Update(obj.Ticket);
+                }
+
+                
                 _db.Save();
 
                 TempData["success"] = "Ticket added successfully";
@@ -97,8 +119,32 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var ticketList = _db.Ticket.GetAll();
+            var ticketList = _db.Ticket.GetAll(includeProperties:"Category,Genre");
             return Json(new { data = ticketList });
+
+            
+        }
+
+        //POST
+        [HttpDelete]
+        public IActionResult Delete(Guid? id)
+        {
+            var obj = _db.Ticket.GetFirstOrDefault(u => u.Id == id);
+            if (obj == null)
+            {
+                return Json(new { success = false, message = "Error while deleting" });
+            }
+
+            var oldImagePath = Path.Combine(_hostEnvironment.WebRootPath, obj.ImageUrl.TrimStart('\\'));
+            if (System.IO.File.Exists(oldImagePath))
+            {
+                System.IO.File.Delete(oldImagePath);
+            }
+
+            _db.Ticket.Remove(obj);
+            _db.Save();
+            return Json(new { success = true, message = "Delete Successful" });
+
         }
 
         #endregion
