@@ -7,7 +7,7 @@ namespace CinemaTicket.Models
     public class Genre
     {
         [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public int Id { get; set; } 
 
         [Display(Name = "Genre")]
         [Required]

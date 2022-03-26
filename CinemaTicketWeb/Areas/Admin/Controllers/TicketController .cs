@@ -19,14 +19,14 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-           
+
             return View();
         }
 
 
 
         //Get
-        public IActionResult Upsert(Guid? id)
+        public IActionResult Upsert(int? id)
         {
             TicketVM ticketVM = new()
             {
@@ -44,7 +44,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
 
             };
 
-            if (id == null)
+            if (id is null or 0)
             {
                 //ViewBag.CategoryList = CategoryList;
                 //ViewData["GenreList"] = GenreList;
@@ -56,7 +56,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
                 return View(ticketVM);
             }
 
-            
+
         }
 
         //Post
@@ -94,7 +94,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
 
                 }
 
-                if (obj.Ticket.Id == Guid.Empty)
+                if (obj.Ticket.Id == 0)
                 {
                     _db.Ticket.Add(obj.Ticket);
                 }
@@ -103,7 +103,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
                     _db.Ticket.Update(obj.Ticket);
                 }
 
-                
+
                 _db.Save();
 
                 TempData["success"] = "Ticket added successfully";
@@ -119,15 +119,15 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var ticketList = _db.Ticket.GetAll(includeProperties:"Category,Genre");
+            var ticketList = _db.Ticket.GetAll(includeProperties: "Category,Genre");
             return Json(new { data = ticketList });
 
-            
+
         }
 
         //POST
         [HttpDelete]
-        public IActionResult Delete(Guid? id)
+        public IActionResult Delete(int? id)
         {
             var obj = _db.Ticket.GetFirstOrDefault(u => u.Id == id);
             if (obj == null)

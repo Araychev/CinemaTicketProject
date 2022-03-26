@@ -50,9 +50,9 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         }
 
         //Get
-        public IActionResult Edit(Guid? id)
+        public IActionResult Edit(int? id)
         {
-            if (id==null)
+            if (id is null or 0)
             {
                 return NotFound();
             }
@@ -84,11 +84,11 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         }
 
         //Get
-        public IActionResult Delete(Guid? id)
+        public IActionResult Delete(int? id)
         {
             
            
-            if (id == null )
+            if (id is null or 0 )
             {
                 return NotFound();
             }
@@ -104,7 +104,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         //Post
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeletePost(Guid? id)
+        public IActionResult DeletePost(int? id)
         {
 
 

@@ -5,7 +5,7 @@ namespace CinemaTicket.Models
     public class Category
     {
         [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public int Id { get; set; }
 
         [Required]
         [StringLength(100, MinimumLength = 1,ErrorMessage = "{0} must be between {2} and {1} characters!")]

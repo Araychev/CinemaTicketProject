@@ -9,14 +9,14 @@ namespace CinemaTicket.Models
     public class Ticket
     {
         [Key]
-       public Guid Id { get; set; } = Guid.NewGuid();
+       public int Id { get; set; } 
 
        [Required]
        [MaxLength(100)]
        [Display(Name = "Title Of Movie")]
        public string TitleOfMovie { get; set; }
 
-       [MaxLength(500)]
+       [MaxLength(2000)]
        public string Description { get; set; }
 
        [Required]
@@ -61,14 +61,14 @@ namespace CinemaTicket.Models
        public string ImageUrl { get; set; }
 
         [Required]
-       public Guid CategoryId { get; set; }
+       public int CategoryId { get; set; }
 
        [ForeignKey(nameof(CategoryId))]
        [ValidateNever]
        public Category Category { get; set; }
 
        [Required]
-       public Guid GenreId { get; set; }
+       public int GenreId { get; set; }
 
        [ForeignKey(nameof(GenreId))]
        [ValidateNever]
