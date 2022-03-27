@@ -15,7 +15,8 @@ namespace CinemaTicket.Models
         [Required]
         public DateTime OrderDate { get; set; }
         public DateTime ShippingDate { get; set; }
-        public double OrderTotal { get; set; }
+        [Column(TypeName = "money")]
+        public decimal OrderTotal { get; set; }
         public string? OrderStatus { get; set; }
         public string? PaymentStatus { get; set; }
         public string? TrackingNumber { get; set; }
@@ -32,8 +33,8 @@ namespace CinemaTicket.Models
         public string StreetAddress { get; set; }
         [Required]
         public string City { get; set; }
-        [Required]
-        public string State { get; set; }
+        
+        public string? State { get; set; }
         [Required]
         public string PostalCode { get; set; }
         [Required]

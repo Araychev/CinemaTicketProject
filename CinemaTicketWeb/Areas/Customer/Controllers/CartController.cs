@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-//using Stripe.Checkout;
+using Stripe.Checkout;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -42,7 +42,7 @@ namespace CinemaTicketWeb.Areas.Customer.Controllers
             {
                 cart.Price = GetPriceBasedOnQuantity(cart.Count, cart.Ticket.Price,
                     cart.Ticket.Price10, cart.Ticket.Price20);
-                ShoppingCartVM.OrderHeader.OrderTotal += (double)(cart.Price * cart.Count);
+                ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
             }
             return View(ShoppingCartVM);
         }
@@ -55,7 +55,7 @@ namespace CinemaTicketWeb.Areas.Customer.Controllers
             ShoppingCartVM = new ShoppingCartVM()
             {
                 ListCart = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value,
-                includeProperties: "Product"),
+                includeProperties: "Ticket"),
                 OrderHeader= new()
             };
             ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(
@@ -74,7 +74,7 @@ namespace CinemaTicketWeb.Areas.Customer.Controllers
             {
                 cart.Price = GetPriceBasedOnQuantity(cart.Count, cart.Ticket.Price,
                     cart.Ticket.Price10, cart.Ticket.Price20);
-                ShoppingCartVM.OrderHeader.OrderTotal += (double)(cart.Price * cart.Count);
+                ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
             }
             return View(ShoppingCartVM);
         }
@@ -88,7 +88,7 @@ namespace CinemaTicketWeb.Areas.Customer.Controllers
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
             ShoppingCartVM.ListCart = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value,
-                includeProperties: "Product");
+                includeProperties: "Ticket");
 
            
             ShoppingCartVM.OrderHeader.OrderDate = System.DateTime.Now;
@@ -133,7 +133,7 @@ namespace CinemaTicketWeb.Areas.Customer.Controllers
             if (applicationUser.CompanyId.GetValueOrDefault() == 0)
             {
                 //stripe settings 
-                var domain = "https://localhost:44300/";
+                var domain = "https://localhost:44301/";
                 var options = new SessionCreateOptions
                 {
                     PaymentMethodTypes = new List<string>
@@ -157,7 +157,7 @@ namespace CinemaTicketWeb.Areas.Customer.Controllers
                             Currency = "usd",
                             ProductData = new SessionLineItemPriceDataProductDataOptions
                             {
-                                Name = item.Product.Title
+                                Name = item.Ticket.TitleOfMovie
                             },
 
                         },
