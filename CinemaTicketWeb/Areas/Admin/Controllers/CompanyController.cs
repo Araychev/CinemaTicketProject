@@ -1,9 +1,12 @@
-﻿using CinemaTicket.Core.Contracts;
+﻿using CinemaTicket.Core.Constants;
+using CinemaTicket.Core.Contracts;
 using CinemaTicket.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaTicketWeb.Areas.Admin.Controllers;
-
+[Area("Admin")]
+[Authorize(Roles = SD.Role_Admin)]
 public class CompanyController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;

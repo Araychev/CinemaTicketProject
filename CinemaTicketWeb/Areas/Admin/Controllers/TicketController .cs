@@ -1,13 +1,14 @@
 ﻿using CinemaTicket.Core.Contracts;
-using CinemaTicket.Models;
 using CinemaTicket.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.IO;
+using CinemaTicket.Core.Constants;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CinemaTicketWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class TicketController : Controller
     {
         private readonly IUnitOfWork _db;
