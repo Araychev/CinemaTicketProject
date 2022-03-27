@@ -1,6 +1,7 @@
 ﻿
 using CinemaTicket.Core.Contracts;
 using CinemaTicket.Infrastructure.Data;
+using CinemaTicket.Models;
 
 namespace CinemaTicket.Core.Services
 {
@@ -15,6 +16,10 @@ namespace CinemaTicket.Core.Services
             Genre = new GenreService(_context);
             Ticket = new TicketService(_context);
             Company=new CompanyService(_context);
+            ApplicationUser = new ApplicationUserService(_context);
+            ShoppingCart = new ShoppingCartService(_context);
+            OrderHeader = new OrderHeaderService(_context);
+            OrderDetail = new OrderDetailService(_context);
         }
         public ICategoryService Category { get; private set; }
         public IGenreService Genre { get; private set; }

@@ -19,6 +19,8 @@ namespace CinemaTicket.Models
         [ValidateNever]
         public Ticket Ticket { get; set; }
         public int Count { get; set; }
-        public double Price { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal Price { get; set; }
     }
 }
