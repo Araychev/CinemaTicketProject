@@ -5,11 +5,11 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaTicketWeb", "CinemaTicketWeb\CinemaTicketWeb.csproj", "{2E9BAC18-A507-475E-8E93-4ABBED66654D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicket.Infrastructure", "CinemaTicket.Infrastructure\CinemaTicket.Infrastructure.csproj", "{3D86260B-3E83-4452-BD01-A1B7CBA2AFCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaTicket.Infrastructure", "CinemaTicket.Infrastructure\CinemaTicket.Infrastructure.csproj", "{3D86260B-3E83-4452-BD01-A1B7CBA2AFCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicket.Models", "CinemaTicket.Models\CinemaTicket.Models.csproj", "{ABC82D20-A57A-4DCA-A41F-B57644D370F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaTicket.Models", "CinemaTicket.Models\CinemaTicket.Models.csproj", "{ABC82D20-A57A-4DCA-A41F-B57644D370F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicket.Core", "CinemaTicket.Core\CinemaTicket.Core.csproj", "{9E8AA049-FEDF-4D16-9BD8-93EDE894FC97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaTicket.Core", "CinemaTicket.Core\CinemaTicket.Core.csproj", "{9E8AA049-FEDF-4D16-9BD8-93EDE894FC97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

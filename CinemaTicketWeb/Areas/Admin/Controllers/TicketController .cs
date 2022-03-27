@@ -3,6 +3,7 @@ using CinemaTicket.Models;
 using CinemaTicket.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.IO;
 
 namespace CinemaTicketWeb.Areas.Admin.Controllers
 {
@@ -62,7 +63,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         //Post
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(TicketVM obj, IFormFile file)
+        public IActionResult Upsert(TicketVM obj, IFormFile? file)
         {
 
 
@@ -90,7 +91,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
                         file.CopyTo(fileStreams);
                     }
 
-                    obj.Ticket.ImageUrl = @"\images\tickets" + fileName + extention;
+                    obj.Ticket.ImageUrl = @"\images\tickets\" + fileName + extention;
 
                 }
 

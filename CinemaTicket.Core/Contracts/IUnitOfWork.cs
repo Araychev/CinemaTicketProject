@@ -8,6 +8,8 @@ namespace CinemaTicket.Core.Contracts
         IGenreService Genre { get; }
 
         ITicketService Ticket { get; }
+
+        ICompanyService Company { get; }
         void Save();
     }
 }
