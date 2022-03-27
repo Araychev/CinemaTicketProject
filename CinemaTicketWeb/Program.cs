@@ -1,7 +1,9 @@
+using CinemaTicket.Core.Constants;
 using CinemaTicket.Core.Contracts;
 using CinemaTicket.Core.Services;
 using CinemaTicket.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
