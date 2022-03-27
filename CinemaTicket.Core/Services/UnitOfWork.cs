@@ -22,6 +22,12 @@ namespace CinemaTicket.Core.Services
         public ITicketService Ticket { get; private set; }
         public ICompanyService Company { get; private set;}
 
+        public IShoppingCartService ShoppingCart {  get; private set; }
+
+        public IApplicationUserService ApplicationUser {  get; private set; }
+        public IOrderHeaderService OrderHeader {  get; private set; }
+        public IOrderDetailService OrderDetail {  get; private set; }
+
         public void Save()
         {
             _context.SaveChanges();
