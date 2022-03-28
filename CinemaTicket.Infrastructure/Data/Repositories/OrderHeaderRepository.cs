@@ -1,16 +1,14 @@
-﻿
-using CinemaTicket.Core.Contracts;
-using CinemaTicket.Infrastructure.Data;
-using CinemaTicket.Infrastructure.Data.Common;
+﻿using CinemaTicket.Infrastructure.Data.Common;
+using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
 using CinemaTicket.Models;
 
-namespace CinemaTicket.Core.Services
+namespace CinemaTicket.Infrastructure.Data.Repositories
 {
-    public class OrderHeaderService : Repository<OrderHeader>, IOrderHeaderService
+    public class OrderHeaderRepository : Repository<OrderHeader>, IOrderHeaderRepository
     {
         private ApplicationDbContext _db;
 
-        public OrderHeaderService(ApplicationDbContext db) : base(db)
+        public OrderHeaderRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }

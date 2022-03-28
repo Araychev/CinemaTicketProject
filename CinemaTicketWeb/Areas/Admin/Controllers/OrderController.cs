@@ -6,7 +6,7 @@ using Stripe.Checkout;
 
 using System.Security.Claims;
 using CinemaTicket.Core.Constants;
-using CinemaTicket.Core.Contracts;
+using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
 using CinemaTicket.Models;
 using CinemaTicket.Models.ViewModels;
 

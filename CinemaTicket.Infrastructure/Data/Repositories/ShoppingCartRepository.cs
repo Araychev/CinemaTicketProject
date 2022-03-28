@@ -1,16 +1,14 @@
-﻿
-using CinemaTicket.Core.Contracts;
-using CinemaTicket.Infrastructure.Data;
-using CinemaTicket.Infrastructure.Data.Common;
+﻿using CinemaTicket.Infrastructure.Data.Common;
+using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
 using CinemaTicket.Models;
 
-namespace CinemaTicket.Core.Services
+namespace CinemaTicket.Infrastructure.Data.Repositories
 {
-    public class ShoppingCartService : Repository<ShoppingCart>, IShoppingCartService
+    public class ShoppingCartRepository : Repository<ShoppingCart>, IShoppingCartRepository
     {
         private ApplicationDbContext _db;
 
-        public ShoppingCartService(ApplicationDbContext db) : base(db)
+        public ShoppingCartRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }

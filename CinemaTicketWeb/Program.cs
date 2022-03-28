@@ -1,7 +1,7 @@
 using CinemaTicket.Core.Constants;
-using CinemaTicket.Core.Contracts;
-using CinemaTicket.Core.Services;
 using CinemaTicket.Infrastructure.Data;
+using CinemaTicket.Infrastructure.Data.Repositories;
+using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
