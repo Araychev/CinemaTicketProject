@@ -105,7 +105,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         }
 
         //Post
-        [HttpPost]
+        [HttpPost,ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {

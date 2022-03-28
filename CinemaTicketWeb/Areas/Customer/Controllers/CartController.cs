@@ -1,11 +1,8 @@
 ﻿
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using CinemaTicket.Core.Constants;
 using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
@@ -154,7 +151,7 @@ namespace CinemaTicketWeb.Areas.Customer.Controllers
                         PriceData = new SessionLineItemPriceDataOptions
                         {
                             UnitAmount = (long)(item.Price * 100),//20.00 -> 2000
-                            Currency = "usd",
+                            Currency = "bgn",
                             ProductData = new SessionLineItemPriceDataProductDataOptions
                             {
                                 Name = item.Ticket.TitleOfMovie

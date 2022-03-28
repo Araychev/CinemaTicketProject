@@ -26,7 +26,7 @@ public class CompanyController : Controller
     {
         Company company = new();
 
-        if (id == null || id == 0)
+        if (id is null or 0)
         {
             return View(company);
         }

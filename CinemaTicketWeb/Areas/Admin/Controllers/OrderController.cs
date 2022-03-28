@@ -69,7 +69,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
                     PriceData = new SessionLineItemPriceDataOptions
                     {
                         UnitAmount = (long)(item.Price * 100),//20.00 -> 2000
-                        Currency = "usd",
+                        Currency = "bgn",
                         ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
                             Name = item.Ticket.TitleOfMovie
