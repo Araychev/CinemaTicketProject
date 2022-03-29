@@ -34,7 +34,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
             OrderVM = new OrderVM()
             {
                 OrderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == orderId, includeProperties: "ApplicationUser"),
-                OrderDetail = _unitOfWork.OrderDetail.GetAll(u => u.OrderId == orderId, includeProperties: "Product"),
+                OrderDetail = _unitOfWork.OrderDetail.GetAll(u => u.OrderId == orderId, includeProperties: "Ticket"),
             };
             return View(OrderVM);
         }
@@ -45,7 +45,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         public IActionResult Details_PAY_NOW()
         {
             OrderVM.OrderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == OrderVM.OrderHeader.Id, includeProperties: "ApplicationUser");
-            OrderVM.OrderDetail = _unitOfWork.OrderDetail.GetAll(u => u.OrderId == OrderVM.OrderHeader.Id, includeProperties: "Product");
+            OrderVM.OrderDetail = _unitOfWork.OrderDetail.GetAll(u => u.OrderId == OrderVM.OrderHeader.Id, includeProperties: "Ticket");
 
            // stripe settings
             var domain = "https://localhost:44301/";

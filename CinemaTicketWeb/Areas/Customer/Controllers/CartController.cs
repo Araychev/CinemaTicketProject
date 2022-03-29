@@ -192,7 +192,7 @@ namespace CinemaTicketWeb.Areas.Customer.Controllers
                     _unitOfWork.Save();
                 }
             }
-            _emailSender.SendEmailAsync(orderHeader.ApplicationUser.Email, "New Order - Bulky Book", "<p>New Order Created</p>");
+            _emailSender.SendEmailAsync(orderHeader.ApplicationUser.Email, "New Order - Movie House", "<p>New Order Created</p>");
             List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId ==
             orderHeader.ApplicationUserId).ToList();
             _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
