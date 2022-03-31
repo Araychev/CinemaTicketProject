@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
 using System.Security.Claims;
-using CinemaTicket.Core.Constants;
 using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
 using CinemaTicket.Models;
 using CinemaTicket.Models.ViewModels;
+using CinemaTicket.Utility;
 
 namespace CinemaTicketWeb.Areas.Customer.Controllers
 {

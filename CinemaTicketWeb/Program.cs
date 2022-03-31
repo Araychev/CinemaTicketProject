@@ -1,7 +1,8 @@
-using CinemaTicket.Core.Constants;
 using CinemaTicket.Infrastructure.Data;
+using CinemaTicket.Infrastructure.Data.DbInitializer;
 using CinemaTicket.Infrastructure.Data.Repositories;
 using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
+using CinemaTicket.Utility;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options
     .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
     ));
@@ -19,17 +19,22 @@ builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Str
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-//builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
-//    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
-
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+builder.Services.AddAuthentication().AddFacebook(options =>
+{
+    options.AppId = "395194115367776";
+    options.AppSecret = "a9a311c093637d2810184af77745e4e3";
+});
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = $"/Identity/Account/Login";
     options.LogoutPath = $"/Identity/Account/Logout";
     options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
 });
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -58,7 +63,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
-//SeedDatabase();
+SeedDatabase();
 app.UseAuthentication();
 
 app.UseAuthorization();
@@ -70,11 +75,11 @@ app.MapControllerRoute(
 
 app.Run();
 
-//void SeedDatabase()
-//{
-//    using (var scope = app.Services.CreateScope())
-//    {
-//        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-//        dbInitializer.Initialize();
-//    }
-//}
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}

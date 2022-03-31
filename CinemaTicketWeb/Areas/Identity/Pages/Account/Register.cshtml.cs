@@ -4,9 +4,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
-using CinemaTicket.Core.Constants;
 using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
 using CinemaTicket.Models;
+using CinemaTicket.Utility;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -119,14 +119,7 @@ namespace CinemaTicketWeb.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            //if (_roleManager.RoleExistsAsync(SD.Role_Admin).GetAwaiter().GetResult())
-            //{
-            //    _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
-            //    _roleManager.CreateAsync(new IdentityRole(SD.Role_Employee)).GetAwaiter().GetResult();
-            //    _roleManager.CreateAsync(new IdentityRole(SD.Role_User_Comp)).GetAwaiter().GetResult();
-            //    _roleManager.CreateAsync(new IdentityRole(SD.Role_User_Indi)).GetAwaiter().GetResult();   
-            //}
-           
+            
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             Input = new InputModel()
@@ -160,8 +153,7 @@ namespace CinemaTicketWeb.Areas.Identity.Pages.Account
                 user.PostalCode = Input.PostalCode;
                 user.Name = Input.Name;
                 user.PhoneNumber = Input.PhoneNumber;
-                if (Input.Role == SD.Role_User_Comp)
-                {
+                if (Input.Role == SD.Role_User_Comp) {
                     user.CompanyId = Input.CompanyId;
                 }
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -170,8 +162,7 @@ namespace CinemaTicketWeb.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    if (Input.Role == null)
-                    {
+                    if (Input.Role == null) {
                         await _userManager.AddToRoleAsync(user, SD.Role_User_Indi);
                     }
                     else
@@ -204,7 +195,7 @@ namespace CinemaTicketWeb.Areas.Identity.Pages.Account
                         else
                         {
                             await _signInManager.SignInAsync(user, isPersistent: false);
-
+                            
                         }
                         return LocalRedirect(returnUrl);
                     }
@@ -215,7 +206,7 @@ namespace CinemaTicketWeb.Areas.Identity.Pages.Account
                 }
             }
 
-            //If we got this far, something failed, redisplay form
+            // If we got this far, something failed, redisplay form
             return Page();
         }
 

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.3" />
@@ -18,11 +19,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
-    <PackageReference Include="Stripe.net" Version="39.100.0" />
+    <PackageReference Include="Stripe.net" Version="39.102.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CinemaTicket.Core\CinemaTicket.Core.csproj" />
+    <ProjectReference Include="..\CinemaTicket.Utility\CinemaTicket.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>

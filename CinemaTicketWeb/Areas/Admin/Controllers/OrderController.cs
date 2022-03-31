@@ -5,10 +5,10 @@ using Stripe;
 using Stripe.Checkout;
 
 using System.Security.Claims;
-using CinemaTicket.Core.Constants;
 using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
 using CinemaTicket.Models;
 using CinemaTicket.Models.ViewModels;
+using CinemaTicket.Utility;
 
 namespace CinemaTicketWeb.Areas.Admin.Controllers
 {

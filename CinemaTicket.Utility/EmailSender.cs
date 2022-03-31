@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 
-namespace CinemaTicket.Core.Constants
+namespace CinemaTicket.Utility
 {
     public class EmailSender : IEmailSender
     {
@@ -25,10 +21,10 @@ namespace CinemaTicket.Core.Constants
             //send email
             using (var emailClient = new SmtpClient())
             {
-               emailClient.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-               emailClient.Authenticate("moviehousear@gmail.com", "DotNet123$");
+                emailClient.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                emailClient.Authenticate("moviehousear@gmail.com", "DotNet123$");
                 emailClient.Send(emailToSend);
-               emailClient.Disconnect(true);
+                emailClient.Disconnect(true);
             }
 
             return Task.CompletedTask;

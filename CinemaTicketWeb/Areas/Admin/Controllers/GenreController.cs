@@ -1,6 +1,6 @@
-﻿using CinemaTicket.Core.Constants;
-using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
+﻿using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
 using CinemaTicket.Models;
+using CinemaTicket.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,6 +1,6 @@
 ﻿
 
-namespace CinemaTicket.Core.Constants
+namespace CinemaTicket.Utility
 {
     public class StripeSettings
     {

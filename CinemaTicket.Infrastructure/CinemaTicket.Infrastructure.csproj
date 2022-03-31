@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CinemaTicket.Models\CinemaTicket.Models.csproj" />
+    <ProjectReference Include="..\CinemaTicket.Utility\CinemaTicket.Utility.csproj" />
   </ItemGroup>
 
 </Project>

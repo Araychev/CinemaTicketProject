@@ -1,5 +1,5 @@
 ﻿
-namespace CinemaTicket.Core.Constants
+namespace CinemaTicket.Utility
 {
     public static class SD
     {

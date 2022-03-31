@@ -1,6 +1,7 @@
 ﻿@model CinemaTicket.Models.ViewModels.ShoppingCartVM
 @using Microsoft.Extensions.Options
-@inject IOptions<CinemaTicket.Core.Constants.StripeSettings> Stripe
+@using CinemaTicket.Utility
+@inject IOptions<StripeSettings> Stripe
 
 <form method="post">
 	<br />

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using CinemaTicket.Core.Constants;
 using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
+using CinemaTicket.Utility;
 
 namespace CinemaTicketWeb.ViewComponents
 {

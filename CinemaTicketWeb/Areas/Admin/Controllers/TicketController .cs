@@ -1,8 +1,8 @@
 ﻿using CinemaTicket.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using CinemaTicket.Core.Constants;
 using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
+using CinemaTicket.Utility;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CinemaTicketWeb.Areas.Admin.Controllers
