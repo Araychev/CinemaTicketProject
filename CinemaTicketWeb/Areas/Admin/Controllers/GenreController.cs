@@ -1,4 +1,4 @@
-﻿using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
+﻿using CinemaTicket.Core.Contracts;
 using CinemaTicket.Models;
 using CinemaTicket.Utility;
 using Microsoft.AspNetCore.Authorization;
@@ -10,42 +10,41 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
     [Authorize(Roles = SD.Role_Admin)]
     public class GenreController : Controller
     {
-        private readonly IUnitOfWork _db;
+        private readonly IGenreService genreService;
 
-        public GenreController(IUnitOfWork db)
+        public GenreController(IGenreService _genreService)
         {
-            _db = db;
+            genreService = _genreService;
         }
         public IActionResult Index()
         {
-            IEnumerable<Genre> ganre = _db.Genre.GetAll();
-            return View(ganre);
+
+            return View(genreService.GetAllGenres());
         }
-        
+
         //Get
         public IActionResult Create()
         {
-            
+
             return View();
-        } 
-        
+        }
+
         //Post
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Genre obj)
         {
-            if (_db.Genre.GetAll().Any(x=>x.Name == obj.Name))
+            if (genreService.IfGenreExit(obj))
             {
                 ModelState.AddModelError("name", "This genre name exist!");
             }
             if (ModelState.IsValid)
             {
-                _db.Genre.Add(obj);
-                _db.Save();
+                genreService.AddGenre(obj);
 
                 TempData["success"] = "Genre created successfully";
 
-                    return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
 
 
@@ -59,7 +58,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var genreFromDb = _db.Genre.GetFirstOrDefault(u=>u.Id==id);;
+            var genreFromDb = genreService.GetGenre(id);
             if (genreFromDb == null)
             {
                 return NotFound();
@@ -72,11 +71,10 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Genre obj)
         {
-           
+
             if (ModelState.IsValid)
             {
-                _db.Genre.Update(obj);
-                _db.Save();
+                genreService.UpdateGenre(obj);
 
                 TempData["success"] = "Genre updated successfully";
                 return RedirectToAction("Index");
@@ -89,14 +87,14 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         //Get
         public IActionResult Delete(int? id)
         {
-            
-           
-            if (id is null or 0 )
+
+
+            if (id is null or 0)
             {
                 return NotFound();
             }
 
-            var genreFromDb = _db.Genre.GetFirstOrDefault(u=>u.Id==id);
+            var genreFromDb = genreService.GetGenre(id);
             if (genreFromDb == null)
             {
                 return NotFound();
@@ -105,22 +103,21 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         }
 
         //Post
-        [HttpPost,ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
 
 
-            var obj = _db.Genre.GetFirstOrDefault(u=>u.Id==id);
+            var obj = genreService.GetGenre(id);
             if (obj == null)
             {
                 return NotFound();
             }
-                _db.Genre.Remove(obj);
-                _db.Save();
-                TempData["success"] = "Genre deleted successfully";
-                return RedirectToAction("Index");
-            
+            genreService.DeleteGenre(obj);
+            TempData["success"] = "Genre deleted successfully";
+            return RedirectToAction("Index");
+
         }
     }
 }
