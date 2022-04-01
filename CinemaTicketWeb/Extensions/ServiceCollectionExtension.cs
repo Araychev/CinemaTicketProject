@@ -20,6 +20,7 @@ namespace CinemaTicketWeb.Extensions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICompanyService, CompanyService>();
 
             services.AddSingleton<IEmailSender, EmailSender>();
 

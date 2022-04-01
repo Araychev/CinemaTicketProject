@@ -1,4 +1,4 @@
-﻿using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
+﻿using CinemaTicket.Core.Contracts;
 using CinemaTicket.Models;
 using CinemaTicket.Utility;
 using Microsoft.AspNetCore.Authorization;
@@ -9,11 +9,11 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers;
 [Authorize(Roles = SD.Role_Admin)]
 public class CompanyController : Controller
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly ICompanyService companyService;
 
-    public CompanyController(IUnitOfWork unitOfWork)
+    public CompanyController(ICompanyService _companyService)
     {
-        _unitOfWork = unitOfWork;
+       companyService = _companyService;
     }
 
     public IActionResult Index()
@@ -32,7 +32,7 @@ public class CompanyController : Controller
         }
         else
         {
-            company = _unitOfWork.Company.GetFirstOrDefault(u => u.Id == id);
+            company = companyService.GetCompany(id);
             return View(company);
         }
     }
@@ -48,15 +48,15 @@ public class CompanyController : Controller
             
             if (obj.Id == 0)
             {
-                _unitOfWork.Company.Add(obj);
+                companyService.AddCompany(obj,file);
                 TempData["success"] = "Company created successfully";
             }
             else
             {
-                _unitOfWork.Company.Update(obj);
+                companyService.UpdateCompany(obj,file);
                 TempData["success"] = "Company updated successfully";
             }
-            _unitOfWork.Save();
+            
             
             return RedirectToAction("Index");
         }
@@ -67,7 +67,7 @@ public class CompanyController : Controller
     [HttpGet]
     public IActionResult GetAll()
     {
-        var companyList = _unitOfWork.Company.GetAll();
+        var companyList = companyService.GetAllCompanies();
         return Json(new { data = companyList });
     }
 
@@ -75,14 +75,13 @@ public class CompanyController : Controller
     [HttpDelete]
     public IActionResult Delete(int? id)
     {
-        var obj = _unitOfWork.Company.GetFirstOrDefault(u => u.Id == id);
+        var obj = companyService.GetCompany(id);
         if (obj == null)
         {
             return Json(new { success = false, message = "Error while deleting" });
         }
 
-        _unitOfWork.Company.Remove(obj);
-        _unitOfWork.Save();
+        companyService.DeleteCompany(obj);
         return Json(new { success = true, message = "Delete Successful" });
 
     }
