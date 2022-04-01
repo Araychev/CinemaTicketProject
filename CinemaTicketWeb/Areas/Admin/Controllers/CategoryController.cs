@@ -1,4 +1,4 @@
-﻿using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
+﻿using CinemaTicket.Core.Contracts;
 using CinemaTicket.Models;
 using CinemaTicket.Utility;
 using Microsoft.AspNetCore.Authorization;
@@ -10,16 +10,16 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
     [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
-        private readonly IUnitOfWork _db;
+        private readonly ICategoryService categoryService;
 
-        public CategoryController(IUnitOfWork db)
+        public CategoryController(ICategoryService _categoryService)
         {
-            _db = db;
+            categoryService = _categoryService;
         }
         public IActionResult Index()
         {
-            IEnumerable<Category> objCategoryList = _db.Category.GetAll();
-            return View(objCategoryList);
+            
+            return View(categoryService.GetAllCategories());
         }
         
         //Get
@@ -34,7 +34,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Category obj)
         {
-            if (_db.Category.GetAll().Any(x=>x.Name == obj.Name))
+            if (categoryService.IfCategoryExit(obj))
             {
                 ModelState.AddModelError("name", "This category name exist!");
             }
@@ -45,8 +45,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 
-                _db.Category.Add(obj);
-                _db.Save();
+                categoryService.AddCategory(obj);
 
                 TempData["success"] = "Category created successfully";
 
@@ -66,7 +65,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoryFromDb = _db.Category.GetFirstOrDefault(u=>u.Id==id);;
+            var categoryFromDb = categoryService.GetCategory(id);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -79,18 +78,17 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Category obj)
         {
-            if (_db.Category.GetAll().Any(x=>x.Name == obj.Name))
-            {
-                ModelState.AddModelError("name", "This category name exist!");
-            }
+            //if (categoryService.IfCategoryExit(obj))
+            //{
+            //    ModelState.AddModelError("name", "This category name exist!");
+            //}
             if (obj.Name == obj.DisplayOrder.ToString())
             {
                 ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
             }
             if (ModelState.IsValid)
             {
-                _db.Category.Update(obj);
-                _db.Save();
+               categoryService.UpdateCategory(obj);
 
                 TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");
@@ -110,7 +108,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoryFromDb = _db.Category.GetFirstOrDefault(u=>u.Id==id);
+            var categoryFromDb = categoryService.GetCategory(id);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -125,13 +123,12 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         {
 
 
-            var obj = _db.Category.GetFirstOrDefault(u=>u.Id==id);
+            var obj = categoryService.GetCategory(id);
             if (obj == null)
             {
                 return NotFound();
             }
-                _db.Category.Remove(obj);
-                _db.Save();
+                categoryService.DeleteCategory(obj);
                 TempData["success"] = "Category deleted successfully";
                 return RedirectToAction("Index");
             

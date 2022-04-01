@@ -1,4 +1,6 @@
-﻿using CinemaTicket.Infrastructure.Data;
+﻿using CinemaTicket.Core.Contracts;
+using CinemaTicket.Core.Services;
+using CinemaTicket.Infrastructure.Data;
 using CinemaTicket.Infrastructure.Data.DbInitializer;
 using CinemaTicket.Infrastructure.Data.Repositories;
 using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
@@ -17,6 +19,8 @@ namespace CinemaTicketWeb.Extensions
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDbInitializer, DbInitializer>();
+            services.AddScoped<ICategoryService, CategoryService>();
+
             services.AddSingleton<IEmailSender, EmailSender>();
 
 
