@@ -1,14 +1,13 @@
 ﻿
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Stripe;
-using Stripe.Checkout;
-
 using System.Security.Claims;
+using CinemaTicket.Core.Contracts;
 using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
 using CinemaTicket.Models;
 using CinemaTicket.Models.ViewModels;
 using CinemaTicket.Utility;
+using Stripe;
 
 namespace CinemaTicketWeb.Areas.Admin.Controllers
 {
@@ -16,12 +15,16 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
     [Authorize]
     public class OrderController : Controller
     {
+        private readonly IOrderService orderService;
         private readonly IUnitOfWork _unitOfWork;
         [BindProperty]
         public OrderVM OrderVM { get; set; }
-        public OrderController(IUnitOfWork unitOfWork)
+        public OrderController(IOrderService _orderService
+            ,IUnitOfWork unitOfWork
+          )
         {
-            _unitOfWork = unitOfWork;
+          orderService = _orderService;
+          _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
@@ -31,12 +34,8 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
 
         public IActionResult Details(int orderId)
         {
-            OrderVM = new OrderVM()
-            {
-                OrderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == orderId, includeProperties: "ApplicationUser"),
-                OrderDetail = _unitOfWork.OrderDetail.GetAll(u => u.OrderId == orderId, includeProperties: "Ticket"),
-            };
-            return View(OrderVM);
+           
+            return View(orderService.OrderDetail(orderId));
         }
 
         [ActionName("Details")]
@@ -44,66 +43,14 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Details_PAY_NOW()
         {
-            OrderVM.OrderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == OrderVM.OrderHeader.Id, includeProperties: "ApplicationUser");
-            OrderVM.OrderDetail = _unitOfWork.OrderDetail.GetAll(u => u.OrderId == OrderVM.OrderHeader.Id, includeProperties: "Ticket");
-
-           // stripe settings
-            var domain = "https://localhost:44301/";
-            var options = new SessionCreateOptions
-            {
-                PaymentMethodTypes = new List<string>
-                {
-                  "card",
-                },
-                LineItems = new List<SessionLineItemOptions>(),
-                Mode = "payment",
-                SuccessUrl = domain + $"admin/order/PaymentConfirmation?orderHeaderid={OrderVM.OrderHeader.Id}",
-                CancelUrl = domain + $"admin/order/details?orderId={OrderVM.OrderHeader.Id}",
-            };
-
-            foreach (var item in OrderVM.OrderDetail)
-            {
-
-                var sessionLineItem = new SessionLineItemOptions
-                {
-                    PriceData = new SessionLineItemPriceDataOptions
-                    {
-                        UnitAmount = (long)(item.Price * 100),//20.00 -> 2000
-                        Currency = "bgn",
-                        ProductData = new SessionLineItemPriceDataProductDataOptions
-                        {
-                            Name = item.Ticket.TitleOfMovie
-                        },
-
-                    },
-                    Quantity = item.Count,
-                };
-                options.LineItems.Add(sessionLineItem);
-
-            }
-
-            var service = new SessionService();
-            Session session = service.Create(options);
-            _unitOfWork.OrderHeader.UpdateStripePaymentID(OrderVM.OrderHeader.Id, session.Id, session.PaymentIntentId);
-            _unitOfWork.Save();
+            var session = orderService.StripePayNow();
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);
         }
 
         public IActionResult PaymentConfirmation(int orderHeaderid)
         {
-            OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == orderHeaderid);
-            if (orderHeader.PaymentStatus == SD.PaymentStatusDelayedPayment)
-            {
-                var service = new SessionService();
-                Session session = service.Get(orderHeader.SessionId);
-                //check the stripe status
-                if (session.PaymentStatus.ToLower() == "paid")
-                {
-                    _unitOfWork.OrderHeader.UpdateStatus(orderHeaderid, orderHeader.OrderStatus, SD.PaymentStatusApproved);
-                    _unitOfWork.Save();
-                }
-            }
+           orderService.ConfirmPayment(orderHeaderid);
             return View(orderHeaderid);
         }
 
@@ -112,6 +59,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult UpdateOrderDetail()
         {
+            
             var orderHEaderFromDb = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == OrderVM.OrderHeader.Id,tracked:false);
             orderHEaderFromDb.Name = OrderVM.OrderHeader.Name;
             orderHEaderFromDb.PhoneNumber = OrderVM.OrderHeader.PhoneNumber;
@@ -159,7 +107,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
                 orderHeader.PaymentDueDate = DateTime.Now.AddDays(30);
             }
             _unitOfWork.OrderHeader.Update(orderHeader);
-             _unitOfWork.Save();
+            _unitOfWork.Save();
             TempData["Success"] = "Order Shipped Successfully.";
             return RedirectToAction("Details", "Order", new { orderId = OrderVM.OrderHeader.Id });
         }
@@ -199,14 +147,15 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         {
             IEnumerable<OrderHeader> orderHeaders;
 
-            if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee)) { 
-            orderHeaders = _unitOfWork.OrderHeader.GetAll(includeProperties: "ApplicationUser");
+            if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
+            {
+                orderHeaders = orderService.OrderHeadersAdminOrEmploye();
             }
             else
             {
                 var claimsIdentity = (ClaimsIdentity)User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-                orderHeaders = _unitOfWork.OrderHeader.GetAll(u=>u.ApplicationUserId==claim.Value,includeProperties: "ApplicationUser");
+                orderHeaders = orderService.OrderHeadersUser(claim);
             }
 
             switch (status)
