@@ -1,4 +1,5 @@
-﻿using CinemaTicket.Models.ViewModels;
+﻿using CinemaTicket.Core.Contracts;
+using CinemaTicket.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
@@ -11,12 +12,12 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
     [Authorize(Roles = SD.Role_Admin)]
     public class TicketController : Controller
     {
-        private readonly IUnitOfWork _db;
+        private readonly ITicketService ticketService;
         private readonly IWebHostEnvironment _hostEnvironment;
 
-        public TicketController(IUnitOfWork db, IWebHostEnvironment hostEnvironment)
+        public TicketController(ITicketService _ticketService, IWebHostEnvironment hostEnvironment)
         {
-            _db = db;
+            ticketService = _ticketService;
             _hostEnvironment = hostEnvironment;
         }
         public IActionResult Index()
@@ -30,21 +31,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         //Get
         public IActionResult Upsert(int? id)
         {
-            TicketVM ticketVM = new()
-            {
-                Ticket = new(),
-                CategoryList = _db.Category.GetAll().Select(i => new SelectListItem
-                {
-                    Text = i.Name,
-                    Value = i.Id.ToString()
-                }),
-                GenreList = _db.Genre.GetAll().Select(i => new SelectListItem
-                {
-                    Text = i.Name,
-                    Value = i.Id.ToString()
-                })
-
-            };
+            var ticketVM = ticketService.GetTicketVM();
 
             if (id is null or 0)
             {
@@ -54,7 +41,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
             }
             else
             {
-                ticketVM.Ticket = _db.Ticket.GetFirstOrDefault(t => t.Id == id);
+                ticketVM.Ticket = ticketService.GetTicketFirst(id);
                 return View(ticketVM);
             }
 
@@ -98,15 +85,15 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
 
                 if (obj.Ticket.Id == 0)
                 {
-                    _db.Ticket.Add(obj.Ticket);
+                   ticketService.AddTicket(obj,file);
                 }
                 else
                 {
-                    _db.Ticket.Update(obj.Ticket);
+                    ticketService.UpdateTicket(obj,file);
                 }
 
 
-                _db.Save();
+                ticketService.SaveTicket();
 
                 TempData["success"] = "Ticket added successfully";
                 return RedirectToAction("Index");
@@ -121,8 +108,8 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var ticketList = _db.Ticket.GetAll(includeProperties: "Category,Genre");
-            return Json(new { data = ticketList });
+            
+            return Json(new { data = ticketService.GetAll() });
 
 
         }
@@ -131,7 +118,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
         [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            var obj = _db.Ticket.GetFirstOrDefault(u => u.Id == id);
+            var obj = ticketService.GetTicketFirst(id);
             if (obj == null)
             {
                 return Json(new { success = false, message = "Error while deleting" });
@@ -143,8 +130,8 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
                 System.IO.File.Delete(oldImagePath);
             }
 
-            _db.Ticket.Remove(obj);
-            _db.Save();
+          ticketService.DeleteTicket(obj);
+            ticketService.SaveTicket();
             return Json(new { success = true, message = "Delete Successful" });
 
         }
