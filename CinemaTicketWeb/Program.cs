@@ -2,20 +2,13 @@ using CinemaTicket.Core.Constants;
 using CinemaTicket.Infrastructure.Data;
 using CinemaTicket.Infrastructure.Data.DbInitializer;
 using CinemaTicket.Utility;
-using CinemaTicketWeb.Extensions;
-using CinemaTicketWeb.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews() .AddMvcOptions(options => 
-{
-    options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
-    options.ModelBinderProviders.Insert(1, new DateTimeModelBinderProvider(FormatingConstant.NormalDateFormat));
-    options.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
-});;
+
 builder.Services.AddApplicationDbContexts(builder.Configuration);
 
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));

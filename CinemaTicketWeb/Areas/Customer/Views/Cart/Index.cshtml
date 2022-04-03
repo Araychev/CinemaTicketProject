@@ -1,4 +1,5 @@
-﻿@model CinemaTicket.Models.ViewModels.ShoppingCartVM
+﻿@using System.Globalization
+@model CinemaTicket.Models.ViewModels.ShoppingCartVM
 
 <form method="post">
 	<br />
@@ -28,7 +29,7 @@
 					</div>
 					<div class="col-12  col-lg-5 text-center row">
 						<div class="col-4 text-md-right pt-4">
-							<h6><strong>@item.Price.ToString("c")
+							<h6><strong>@item.Price.ToString("c",new CultureInfo("bg-BG"))
 								<span class="text-muted">&nbsp;x&nbsp;</span>@item.Count </strong></h6>
 						</div>
 						<div class="col-6 col-sm-4 col-lg-6 pt-2">
@@ -56,7 +57,7 @@
 						<ul class="list-group">
 							<li class="list-group-item d-flex justify-content-between bg-light">
 								<span class="text-info"> Total (BGN)</span>
-								<strong class="text-info">@Model.OrderHeader.OrderTotal.ToString("c")</strong>
+								<strong class="text-info">@Model.OrderHeader.OrderTotal.ToString("c",new CultureInfo("bg-BG"))</strong>
 							</li>
 						</ul>
 					</div>

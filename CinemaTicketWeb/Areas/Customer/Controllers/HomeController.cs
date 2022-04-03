@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Security.Claims;
+using CinemaTicket.Core.Contracts;
 using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
 using CinemaTicket.Models;
 using CinemaTicket.Utility;
@@ -12,32 +13,28 @@ namespace CinemaTicketWeb.Areas.Customer.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHomeService homeService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
+        public HomeController(ILogger<HomeController> logger, 
+            IHomeService _homeService,
+            IUnitOfWork unitOfWork)
         {
             _logger = logger;
-            _unitOfWork = unitOfWork;
+           homeService = _homeService;
+           _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Ticket> ticketList = _unitOfWork.Ticket.GetAll(includeProperties: "Category,Genre");
 
-            return View(ticketList);
+            return View(homeService.TicketList());
         }
 
         public IActionResult Details(int ticketId)
         {
-            ShoppingCart cartObj = new()
-            {
-                Count = 1,
-                TicketId = ticketId,
-                Ticket = _unitOfWork.Ticket.GetFirstOrDefault(u => u.Id == ticketId,
-                    includeProperties: "Category,Genre"),
-            };
-
-            return View(cartObj);
+           
+            return View(homeService.ShoppingCart(ticketId));
         }
 
         [HttpPost]

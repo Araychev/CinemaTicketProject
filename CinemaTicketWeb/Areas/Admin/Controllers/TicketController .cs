@@ -35,12 +35,14 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
 
             if (id is null or 0)
             {
+                //create ticket
                 //ViewBag.CategoryList = CategoryList;
                 //ViewData["GenreList"] = GenreList;
                 return View(ticketVM);
             }
             else
             {
+                //update ticket
                 ticketVM.Ticket = ticketService.GetTicketFirst(id);
                 return View(ticketVM);
             }
