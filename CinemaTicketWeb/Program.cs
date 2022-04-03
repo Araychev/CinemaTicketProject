@@ -1,4 +1,3 @@
-using CinemaTicket.Core.Constants;
 using CinemaTicket.Infrastructure.Data;
 using CinemaTicket.Infrastructure.Data.DbInitializer;
 using CinemaTicket.Utility;
