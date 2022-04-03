@@ -1,7 +1,6 @@
 ﻿using CinemaTicket.Core.Contracts;
 using CinemaTicket.Core.Services;
 using CinemaTicket.Infrastructure.Data;
-using CinemaTicket.Infrastructure.Data.DbInitializer;
 using CinemaTicket.Infrastructure.Data.Repositories;
 using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
 using CinemaTicket.Utility;
@@ -17,7 +16,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IGenreService, GenreService>();
