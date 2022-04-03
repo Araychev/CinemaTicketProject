@@ -1,5 +1,6 @@
 ﻿@model CinemaTicket.Models.ViewModels.OrderVM
 @using CinemaTicket.Utility
+@using System.Globalization
 
 <form method="post">
 	<input asp-for="OrderHeader.Id" hidden />
@@ -213,11 +214,11 @@
 											<div class="col-8">
 
 												<h6 class="my-0 text-primary">@detail.Ticket.TitleOfMovie</h6>
-												<small class="text-muted">Price : @detail.Price.ToString("c")</small><br />
+												<small class="text-muted">Price : @detail.Price.ToString("c",new CultureInfo("bg-BG"))</small><br />
 												<small class="text-muted">Quantity : @detail.Count</small>
 											</div>
 											<div class="col-4 text-end">
-												<p class="text-success">@((detail.Count * detail.Price).ToString("c"))</p>
+												<p class="text-success">@((detail.Count * detail.Price).ToString("c",new CultureInfo("bg-BG")))</p>
 											</div>
 										</div>
 									</li>
@@ -228,7 +229,7 @@
 											<h5 class="text-white">TOTAL </h5>
 										</div>
 										<div class="col-6 text-end">
-											<h5 class="text-white">@Model.OrderHeader.OrderTotal.ToString("c")</h5>
+											<h5 class="text-white">@Model.OrderHeader.OrderTotal.ToString("c",new CultureInfo("bg-BG"))</h5>
 										</div>
 									</div>
 								</li>

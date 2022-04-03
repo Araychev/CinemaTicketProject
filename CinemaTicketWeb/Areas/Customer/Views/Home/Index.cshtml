@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Ticket>
+﻿@using System.Globalization
+@model IEnumerable<Ticket>
 
 <div class="row pb-3">
     @foreach(var ticket in Model)
@@ -15,10 +16,10 @@
                                 <p class="card-title text-info">by <b>@ticket.Director</b></p>
                             </div>
                             <div class="pl-1">
-                                <p>List Price: <strike><b>$@ticket.ListPrice.ToString("0.00")</b></strike></p>
+                                <p>List Price: <strike><b>@ticket.ListPrice.ToString("c",new CultureInfo("bg-BG"))</b></strike></p>
                             </div>
                             <div class="pl-1">
-                                <p>As low as: <b>$@ticket.Price20.ToString("0.00")</b></p>
+                                <p>As low as: <b>@ticket.Price20.ToString("c",new CultureInfo("bg-BG"))</b></p>
                             </div>
                         </div>
                     </div>
