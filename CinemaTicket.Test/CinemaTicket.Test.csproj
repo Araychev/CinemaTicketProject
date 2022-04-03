@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CinemaTicket.Core\CinemaTicket.Core.csproj" />
+    <ProjectReference Include="..\CinemaTicketWeb\CinemaTicketWeb.csproj" />
+  </ItemGroup>
+
 </Project>
