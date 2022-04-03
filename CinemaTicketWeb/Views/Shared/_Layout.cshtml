@@ -1,4 +1,6 @@
 ﻿@using CinemaTicket.Utility
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +29,7 @@
                         </li>
                     @if (User.IsInRole(SD.Role_Admin))
                     {
+                   
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Content Managment</a>
                             <div class="dropdown-menu">
@@ -39,6 +42,7 @@
                                 <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Create User</a>
                             </div>
                         </li>
+
                     }
                         <li class="nav-item">
                             <a class=nav-link asp-area="Admin" asp-controller="Order" asp-action="Index">

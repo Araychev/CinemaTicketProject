@@ -27,7 +27,7 @@ namespace CinemaTicketWeb.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-
+           
             return View(homeService.TicketList());
         }
 
