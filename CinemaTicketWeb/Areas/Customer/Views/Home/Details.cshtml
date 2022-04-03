@@ -1,4 +1,6 @@
-﻿@model ShoppingCart
+﻿@using System.Globalization
+@using CinemaTicket.Utility
+@model ShoppingCart
 
 <form method="post">
     <input hidden asp-for="TicketId" />
@@ -19,7 +21,7 @@
                         <div class="col-8 col-lg-8">
 
                             <div class="row pl-2">
-                                <h5 class="text-muted pb-2">List Price: <strike>@Model.Ticket.ListPrice.ToString("c")</strike></h5>
+                                <h5 class="text-muted pb-2">List Price: <strike>@Model.Ticket.ListPrice.ToString("c",new CultureInfo("bg-BG"))</strike></h5>
                             </div>
                             <div class="row text-center pl-2">
                                 <div class="p-1 col-2 bg-secondary border-bottom">
@@ -40,13 +42,13 @@
                                     <div>Price</div>
                                 </div>
                                 <div class="p-1 col-2 bg-secondary">
-                                    <div>@Model.Ticket.Price.ToString("c")</div>
+                                    <div>@Model.Ticket.Price.ToString("c",new CultureInfo("bg-BG"))</div>
                                 </div>
                                 <div class="p-1 col-2 bg-secondary">
-                                    <div>@Model.Ticket.Price10.ToString("c")</div>
+                                    <div>@Model.Ticket.Price10.ToString("c",new CultureInfo("bg-BG"))</div>
                                 </div>
                                 <div class="p-1 col-2 bg-secondary">
-                                    <div>@Model.Ticket.Price20.ToString("c")</div>
+                                    <div>@Model.Ticket.Price20.ToString("c",new CultureInfo("bg-BG"))</div>
                                 </div>
                             </div>
                             <div class="row pl-2">
@@ -68,9 +70,12 @@
                     <div class="col-12 col-md-6 pb-1">
                         <a class="btn btn-success form-control " style="height:50px;" asp-action="Index">Back to Home</a>
                     </div>
-                    <div class="col-12 col-md-6 pb-1">
-                        <button type="submit" value="Add to Cart" class="btn btn-primary form-control" style="height:50px;">Add to Cart</button>
-                    </div>
+                    @if (!User.IsInRole(SD.Role_Admin))
+                    {
+                        <div class="col-12 col-md-6 pb-1">
+                            <button type="submit" value="Add to Cart" class="btn btn-primary form-control" style="height: 50px;">Add to Cart</button>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
