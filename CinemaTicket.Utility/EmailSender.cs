@@ -1,7 +1,6 @@
 ﻿
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Configuration;
 using MimeKit;
 
 namespace CinemaTicket.Utility

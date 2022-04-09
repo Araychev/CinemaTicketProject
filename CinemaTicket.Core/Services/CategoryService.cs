@@ -8,10 +8,12 @@ namespace CinemaTicket.Core.Services
     public class CategoryService : ICategoryService
     {
         private readonly IUnitOfWork _db;
+       
 
         public CategoryService(IUnitOfWork db)
         {
             _db = db;
+            
         }
         public void AddCategory(Category model)
         {
@@ -19,19 +21,14 @@ namespace CinemaTicket.Core.Services
                 _db.Save(); 
         }
 
-        public IEnumerable<Category> GetAllCategories()
-        {
-            IEnumerable<Category> objCategoryList = _db.Category.GetAll();
+        public IEnumerable<Category> GetAllCategories() => _db.Category.GetAll();
 
-            return objCategoryList;
-        }
+           
+        
 
-        public Category GetCategory(int? id)
-        {
-          
-            var categoryFromDb = _db.Category.GetFirstOrDefault(u => u.Id == id); ;
-            return categoryFromDb;
-        }
+        public Category GetCategory(int? id)=>_db.Category.GetFirstOrDefault(u => u.Id == id); 
+            
+        
 
         public bool IfCategoryExit(Category model) 
         {
