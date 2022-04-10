@@ -1,7 +1,7 @@
 ﻿@using CinemaTicket.Utility
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
-    if (User.IsInRole(SD.Role_Admin))
+    if (User.IsInRole(SD.Role_Admin)|| User.IsInRole(SD.Role_Employee))
     {
         Layout = "_LayoutAdmin"; 
     }
