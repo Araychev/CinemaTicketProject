@@ -88,16 +88,18 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
                 if (obj.Ticket.Id == 0)
                 {
                    ticketService.AddTicket(obj,file);
+                   TempData["success"] = "Ticket added successfully!";
                 }
                 else
                 {
                     ticketService.UpdateTicket(obj,file);
+                    TempData["success"] = "Ticket updated successfully!";
                 }
 
 
                
 
-                TempData["success"] = "Ticket added successfully";
+               
                 return RedirectToAction("Index");
             }
 
@@ -134,7 +136,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
 
           ticketService.DeleteTicket(obj);
           
-            return Json(new { success = true, message = "Delete Successful" });
+            return Json(new { success = true, message = "Delete Successful!" });
 
         }
 
