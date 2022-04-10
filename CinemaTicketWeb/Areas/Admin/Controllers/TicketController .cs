@@ -95,7 +95,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
                 }
 
 
-                ticketService.SaveTicket();
+               
 
                 TempData["success"] = "Ticket added successfully";
                 return RedirectToAction("Index");
@@ -133,7 +133,7 @@ namespace CinemaTicketWeb.Areas.Admin.Controllers
             }
 
           ticketService.DeleteTicket(obj);
-            ticketService.SaveTicket();
+          
             return Json(new { success = true, message = "Delete Successful" });
 
         }

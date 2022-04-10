@@ -46,21 +46,21 @@ namespace CinemaTicket.Core.Services
         public void AddTicket(TicketVM obj, IFormFile? file)
         {
             _db.Ticket.Add(obj.Ticket);
+            _db.Save();
         }
 
         public void UpdateTicket(TicketVM obj, IFormFile? file)
         {
             _db.Ticket.Update(obj.Ticket);
-        }
-
-        public void SaveTicket()
-        {
             _db.Save();
         }
+
+   
 
         public void DeleteTicket(Ticket obj)
         {
             _db.Ticket.Remove(obj);
+            _db.Save();
         }
 
         public IEnumerable<Ticket> GetAll() => _db.Ticket.GetAll(includeProperties: "Category,Genre");
