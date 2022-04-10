@@ -239,19 +239,19 @@ namespace CinemaTicketWeb.Areas.Customer.Controllers
 
 
 
-        private decimal GetPriceBasedOnQuantity(double quantity, decimal price, decimal price50, decimal price100)
+        private decimal GetPriceBasedOnQuantity(double quantity, decimal price, decimal price5, decimal price10)
         {
-            if (quantity <= 50)
+            if (quantity <= 5)
             {
                 return price;
             }
             else
             {
-                if (quantity <= 100)
+                if (quantity <= 10)
                 {
-                    return price50;
+                    return price5;
                 }
-                return price100;
+                return price10;
             }
         }
     }

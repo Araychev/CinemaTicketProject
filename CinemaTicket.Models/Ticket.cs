@@ -16,7 +16,7 @@ namespace CinemaTicket.Models
        [Display(Name = "Title Of Movie")]
        public string TitleOfMovie { get; set; }
 
-       [MaxLength(2000)]
+      
        public string Description { get; set; }
 
        [Required]
@@ -34,6 +34,18 @@ namespace CinemaTicket.Models
         [MaxLength(100)]
         [Display(Name = "Original language")]
        public string? OriginalLanguage { get; set; }
+       
+       [MaxLength(1000)]
+       [Required]
+       [Display(Name = "Cinema")]
+       public string CinemaName { get; set; }
+
+       [MaxLength(1000)]
+       [Required]
+       [Display(Name = "Cinema Hall")]
+       public string CinemaHall { get; set; }
+
+       public DateTime ProjectionDateAndTime { get; set; }
 
         [Required]
         [Range(1,10000)]

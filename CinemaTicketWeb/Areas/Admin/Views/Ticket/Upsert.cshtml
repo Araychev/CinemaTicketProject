@@ -29,6 +29,21 @@
                     <span asp-validation-for="Ticket.Director" class="text-danger"></span>
                 </div>
                 <div class="mb-2 col-6">
+                    <label asp-for="Ticket.CinemaName" class="control-label"></label>
+                    <input asp-for="Ticket.CinemaName" class="form-control" />
+                    <span asp-validation-for="Ticket.CinemaName" class="text-danger"></span>
+                </div>
+                <div class="mb-2 col-6">
+                    <label asp-for="Ticket.ProjectionDateAndTime" class="control-label"></label>
+                    <input asp-for="Ticket.ProjectionDateAndTime" class="form-control" />
+                    <span asp-validation-for="Ticket.ProjectionDateAndTime" class="text-danger"></span>
+                </div>
+                <div class="mb-2 col-6">
+                    <label asp-for="Ticket.CinemaHall" class="control-label"></label>
+                    <input asp-for="Ticket.CinemaHall" class="form-control" />
+                    <span asp-validation-for="Ticket.CinemaHall" class="text-danger"></span>
+                </div>
+                <div class="mb-2 col-6">
                     <label asp-for="Ticket.Actors" class="control-label"></label>
                     <input asp-for="Ticket.Actors" class="form-control" />
                     <span asp-validation-for="Ticket.Actors" class="text-danger"></span>
@@ -99,7 +114,7 @@
         </div>
         <div class="col-2 pt-4">
             <img src="@Model.Ticket.ImageUrl"
-                 width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                 width="220" style="border-radius:5px; border:1px solid #bbb9b9" />
         </div>
     </div>
 </form>

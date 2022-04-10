@@ -33,7 +33,7 @@ namespace CinemaTicketWeb.ModelBinders
                 {
                     try
                     {
-                        actualValue = DateTime.Parse(dateValue, new CultureInfo("bg-bg"));
+                        actualValue = DateTime.Parse(dateValue, new CultureInfo("bg-BG"));
                     }
                     catch (Exception e)
                     {
