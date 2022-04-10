@@ -1,4 +1,5 @@
-﻿using CinemaTicket.Core.Contracts;
+﻿using System.Globalization;
+using CinemaTicket.Core.Contracts;
 using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
 using CinemaTicket.Models;
 using CinemaTicket.Models.ViewModels;
