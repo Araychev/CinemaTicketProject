@@ -119,21 +119,30 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a class="nav-link active" asp-area="Admin" asp-controller="Category" asp-action="Index"> <i class="far fa-circle nav-icon"></i>Category</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" asp-area="Admin" asp-controller="Genre" asp-action="Index"> <i class="far fa-circle nav-icon"></i>Genre</a>
-              </li>
+              @if (User.IsInRole(SD.Role_Admin))
+              { 
+                <li class="nav-item">
+                  <a class="nav-link active" asp-area="Admin" asp-controller="Category" asp-action="Index"> <i class="far fa-circle nav-icon"></i>Category</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" asp-area="Admin" asp-controller="Genre" asp-action="Index"> <i class="far fa-circle nav-icon"></i>Genre</a>
+                </li>
+
+              }
+             
+              
               <li class="nav-item">
                 <a class="nav-link active" asp-area="Admin" asp-controller="Ticket" asp-action="Index"><i class="far fa-circle nav-icon"></i>Movie Ticket</a>
               </li>
+            @if (User.IsInRole(SD.Role_Admin))
+            {
               <li class="nav-item">
                 <a class="nav-link active" asp-area="Admin" asp-controller="Company" asp-action="Index"><i class="far fa-circle nav-icon"></i>Company</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" asp-area="Identity" asp-page="/Account/Register"><i class="far fa-circle nav-icon"></i>Create User</a>
               </li>
+            }
               <li class="nav-item">
                 <a class=nav-link asp-area="Admin" asp-controller="Order" asp-action="Index"><i class="far fa-circle nav-icon"></i>Manage Order</a>
               </li>
