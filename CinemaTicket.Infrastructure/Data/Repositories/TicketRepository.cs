@@ -22,6 +22,9 @@ namespace CinemaTicket.Infrastructure.Data.Repositories
                 objFromDb.Actors = obj.Actors;
                 objFromDb.Category = obj.Category;
                 objFromDb.Genre = obj.Genre;
+                objFromDb.ProjectionDateAndTime= obj.ProjectionDateAndTime;
+                objFromDb.CinemaHall= obj.CinemaHall;
+                objFromDb.CinemaName= obj.CinemaName;
                 objFromDb.Country = obj.Country;
                 objFromDb.Description = obj.Description;
                 objFromDb.Director = obj.Director;
