@@ -16,7 +16,7 @@ namespace CinemaTicket.Infrastructure.Data.Repositories
         {
             var objFromDb = _db.Tickets.FirstOrDefault(u => u.Id == obj.Id);
 
-            if (objFromDb == null)
+            if (objFromDb != null)
             {
                 objFromDb.TitleOfMovie = obj.TitleOfMovie;
                 objFromDb.Actors = obj.Actors;

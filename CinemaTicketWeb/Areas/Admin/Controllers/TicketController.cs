@@ -1,8 +1,6 @@
 ﻿using CinemaTicket.Core.Contracts;
 using CinemaTicket.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
 using CinemaTicket.Utility;
 using Microsoft.AspNetCore.Authorization;
 
