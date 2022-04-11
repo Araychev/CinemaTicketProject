@@ -1,4 +1,5 @@
-﻿using CinemaTicket.Core.Constants;
+﻿using System.Globalization;
+using CinemaTicket.Core.Constants;
 using CinemaTicket.Core.Contracts;
 using CinemaTicket.Core.Services;
 using CinemaTicket.Infrastructure.Data;
@@ -8,6 +9,8 @@ using CinemaTicket.Infrastructure.Data.Repositories.IRepository;
 using CinemaTicket.Utility;
 using CinemaTicketWeb.ModelBinders;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -18,11 +21,27 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddControllersWithViews() .AddMvcOptions(options => 
+            services.AddControllersWithViews()
+                .AddMvcOptions(options =>
             {
                 options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
                 options.ModelBinderProviders.Insert(1, new DateTimeModelBinderProvider(FormatingConstant.NormalDateFormat));
                 options.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
+            })
+                .AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix);
+
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedLanguages = new CultureInfo[]
+                {
+                    new CultureInfo("bg"),
+                    new CultureInfo("en")
+                };
+
+                options.DefaultRequestCulture = new RequestCulture("bg");
+                options.SupportedCultures = supportedLanguages;
+                options.SupportedUICultures = supportedLanguages;
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
