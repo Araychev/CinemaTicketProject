@@ -40,7 +40,7 @@ namespace CinemaTicket.Models
        [Display(Name = "Cinema")]
        public string CinemaName { get; set; }
 
-       [MaxLength(1000)]
+       [MaxLength(100)]
        [Required]
        [Display(Name = "Cinema Hall")]
        public string CinemaHall { get; set; }
@@ -48,7 +48,7 @@ namespace CinemaTicket.Models
        [MaxLength(100)]
        [Required]
        [Display(Name = "Projection Date and Time")]
-       public string ProjectionDateAndTime { get; set; }
+       public string ProjectionDateAndTime { get; set; } 
 
         [Required]
         [Range(1,10000)]

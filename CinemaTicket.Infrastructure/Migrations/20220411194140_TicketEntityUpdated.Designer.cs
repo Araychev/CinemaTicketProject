@@ -4,6 +4,7 @@ using CinemaTicket.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaTicket.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220411194140_TicketEntityUpdated")]
+    partial class TicketEntityUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,8 +246,8 @@ namespace CinemaTicket.Infrastructure.Migrations
 
                     b.Property<string>("CinemaHall")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("CinemaName")
                         .IsRequired()
@@ -288,10 +290,8 @@ namespace CinemaTicket.Infrastructure.Migrations
                     b.Property<decimal>("Price20")
                         .HasColumnType("money");
 
-                    b.Property<string>("ProjectionDateAndTime")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<DateTime>("ProjectionDateAndTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("TitleOfMovie")
                         .IsRequired()
