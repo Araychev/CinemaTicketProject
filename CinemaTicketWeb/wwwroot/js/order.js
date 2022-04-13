@@ -43,7 +43,7 @@ function loadDataTable(status) {
                     return `
                         <div class="w-75 btn-group" role="group">
                         <a href="/Admin/Order/Details?orderId=${data}"
-                        class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i></a>
+                        class="btn btn-primary mx-2"> <i class="bi bi-pencil-fill"></i></a>
                       
 					</div>
                         `
