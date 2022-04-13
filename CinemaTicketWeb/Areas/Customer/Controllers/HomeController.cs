@@ -27,8 +27,11 @@ namespace CinemaTicketWeb.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-           
-            return View(homeService.TicketList());
+            if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee)) 
+            {
+              return Redirect("Admin/Ticket/index");
+            }
+                return View(homeService.TicketList());
         }
 
         public IActionResult Details(int ticketId)
