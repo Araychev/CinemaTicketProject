@@ -12,4 +12,4 @@ The application has Utility and Extras like:
 -Facebook login
 
 
-Demo site is hosted to Azure: https://cinematicketweb.azurewebsites.net/
+
