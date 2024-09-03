@@ -12,4 +12,6 @@ The application has Utility and Extras like:
 -Facebook login
 
 
-
+Admin login:
+admin@demo.com
+Admin123*
